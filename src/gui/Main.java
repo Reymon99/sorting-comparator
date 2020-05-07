@@ -6,7 +6,7 @@ public class Main extends JFrame {
     private Main() {
         super("Sorting Comparator");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setContentPane(new JPanel());
+        setContentPane(new Comparator());
         pack();
         setLocationRelativeTo(null);
     }
