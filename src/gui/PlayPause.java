@@ -19,6 +19,9 @@ public class PlayPause extends JLabel {
         pause = "/resources/pause.png";
     }
 
+    /**
+     * Botón Play and Pause
+     */
     public PlayPause() {
         playPause = false;
         playPause();
@@ -33,6 +36,9 @@ public class PlayPause extends JLabel {
         });
     }
 
+    /**
+     * Modifica el icono del boton según su estado
+     */
     private void playPause() {
         try {
             setIcon(new ImageIcon(
@@ -48,6 +54,10 @@ public class PlayPause extends JLabel {
         }
     }
 
+    /**
+     * Fija el evento del botón
+     * @param event evento Mouse
+     */
     public void setEvent(Consumer<MouseEvent> event) {
         this.event = event;
     }
