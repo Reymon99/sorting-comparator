@@ -52,6 +52,9 @@ public class ComparatorMethods extends JPanel {
         JButton runAll = new JButton("Run All");
         JButton restart = new JButton("Restart");
         JButton setValues = new JButton("Set Values");
+
+        setValues.addActionListener(e -> new Values(this).setVisible(true));
+
         panel.add(runAll);
         panel.add(restart);
         panel.add(setValues);
