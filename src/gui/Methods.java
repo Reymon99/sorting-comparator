@@ -1,14 +1,14 @@
 package gui;
 
 public enum Methods {
-    BURBUJA("Burbuja Simple"),
-    BURBUJA_MEJORADA("Burbuja Mejorada"),
-    BURBUJA_OPTIMIZADA("Burbuja Optimizada"),
+    BUBBLE("Simple Bubble"),
+    IMPROVED_BUBBLE("Improved Bubble"),
+    OPTIMIZED_BUBBLE("Optimized Bubble"),
     QUICKSORT("QuickSort"),
     SHELLSORT("ShellSort"),
     RADIXSORT("RadixSort"),
-    SELECCION("Selección"),
-    INSERCION("Inserción"),
+    SELECTION("Selection"),
+    INSERTION("Insertion"),
     MERGESORT("MergeSort");
     private final String name;
 
