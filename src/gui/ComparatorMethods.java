@@ -13,7 +13,7 @@ public class ComparatorMethods extends JPanel {
 
     {
         methods = new ArrayList<>();
-        for (Methods method: Methods.values()) methods.add(new SortingMethod(method, Values.data.clone()));
+        for (Methods method: Methods.values()) methods.add(new SortingMethod(method));
     }
 
     public ComparatorMethods() {

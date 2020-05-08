@@ -11,11 +11,10 @@ public class SortingMethod extends JPanel {
     private final Sorting sorting;
     private final JLabel time;
 
-    public SortingMethod(Methods method, int[] data){
+    public SortingMethod(Methods method){
         super(new GridBagLayout());
         sorting = new Sorting(
                 method,
-                data,
                 time = new JLabel("0 ms"),
                 true
         );
