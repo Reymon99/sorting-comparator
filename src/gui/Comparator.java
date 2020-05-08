@@ -17,19 +17,19 @@ public class Comparator extends JPanel {
     }
 
     private void init() {
-        TableComparator table = new TableComparator();
+        ComparatorMethods methods = new ComparatorMethods();
         Constrains.addComp(
-                new View(table, this),
+                new View(methods, this),
                 new Rectangle(0, 0, 1, 1),
                 new Weight(1, 1),
-                new Insets(10, 10, 10, 10),
+                new Insets(30, 10, 10, 10),
                 new Point(GridBagConstraints.CENTER, GridBagConstraints.BOTH)
         );
         Constrains.addComp(
                 new View(comparator(), this),
                 new Rectangle(0, 1, 1, 1),
                 new Weight(1, 1),
-                new Insets(30, 10, 10, 10),
+                new Insets(30, 10, 10, 20),
                 new Point(GridBagConstraints.CENTER, GridBagConstraints.NONE)
         );
     }

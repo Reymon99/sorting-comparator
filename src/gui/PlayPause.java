@@ -31,7 +31,10 @@ public class PlayPause extends JLabel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 playPause();
-                event.accept(e);
+                try {
+                    event.accept(e);
+                } catch (Exception exception) {// None
+                }
             }
         });
     }
