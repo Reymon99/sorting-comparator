@@ -19,7 +19,7 @@ public class TableComparator extends JTable {
         model.setColumnIdentifiers(
                 Stream.of(
                         new String[]{""},
-                        Comparator.methods.values()
+                        Methods.values()
                 )
                         .flatMap(Stream::of)
                         .toArray(Serializable[]::new)

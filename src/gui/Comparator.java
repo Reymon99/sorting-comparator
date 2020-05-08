@@ -8,29 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Comparator extends JPanel {
-    private DefaultListModel listSorting;
-
-    public enum methods {
-        BURBUJA("Burbuja Simple"),
-        BURBUJA_MEJORADA("Burbuja Mejorada"),
-        BURBUJA_OPTIMIZADA("Burbuja Optimizada"),
-        QUICKSORT("QuickSort"),
-        SHELLSORT("ShellSort"),
-        RADIXSORT("RadixSort"),
-        SELECCION("Selección"),
-        INSERCION("Inserción"),
-        MERGESORT("MergeSort");
-        private final String name;
-
-        methods(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-    }
 
     public Comparator() {
         super(new GridBagLayout());
