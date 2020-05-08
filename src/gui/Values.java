@@ -15,7 +15,7 @@ import java.util.Objects;
 import java.util.Random;
 
 public class Values extends JDialog implements KeyListener, ActionListener {
-    public static int[] data;
+    public static ArrayList<Integer> data;
     private final JTextArea areaData;
     private String dataStr;
 
@@ -24,11 +24,11 @@ public class Values extends JDialog implements KeyListener, ActionListener {
     }
 
     static {
-        data = new int[10];
+        data = new ArrayList<>();
         Random random = new Random();
         ArrayList<Integer> range = new ArrayList<>();
         for (int i = 10; i < 100; i++) range.add(i);
-        for (int i = 0; i < data.length; i++) data[i] = range.remove(random.nextInt(range.size()));
+        for (int i = 0; i < 10; i++) data.add(range.remove(random.nextInt(range.size())));
         range.clear();
         System.gc();
     }
@@ -99,7 +99,7 @@ public class Values extends JDialog implements KeyListener, ActionListener {
     private String dataBuilder() {
         if (!Objects.equals(dataStr, areaData.getText())) {
             StringBuilder builder = new StringBuilder();
-            for (int d: Values.data) builder.append(d).append(", ");
+            Values.data.forEach(data -> builder.append(data).append(", "));
             dataStr = builder.substring(0, builder.length() - 2);
         }
         return dataStr;
