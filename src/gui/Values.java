@@ -29,6 +29,8 @@ public class Values extends JDialog implements KeyListener, ActionListener {
         ArrayList<Integer> range = new ArrayList<>();
         for (int i = 10; i < 100; i++) range.add(i);
         for (int i = 0; i < data.length; i++) data[i] = range.remove(random.nextInt(range.size()));
+        range.clear();
+        System.gc();
     }
 
     public Values(JPanel panel) {

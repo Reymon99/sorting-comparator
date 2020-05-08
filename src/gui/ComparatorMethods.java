@@ -12,17 +12,8 @@ public class ComparatorMethods extends JPanel {
     private final ArrayList<SortingMethod> methods;
 
     {
-        int[] data = {1, 2, 3};
         methods = new ArrayList<>();
-        methods.add(new SortingMethod(Methods.BUBBLE, data));
-        methods.add(new SortingMethod(Methods.IMPROVED_BUBBLE, data));
-        methods.add(new SortingMethod(Methods.OPTIMIZED_BUBBLE, data));
-        methods.add(new SortingMethod(Methods.QUICKSORT, data));
-        methods.add(new SortingMethod(Methods.SHELLSORT, data));
-        methods.add(new SortingMethod(Methods.RADIXSORT, data));
-        methods.add(new SortingMethod(Methods.SELECTION, data));
-        methods.add(new SortingMethod(Methods.INSERTION, data));
-        methods.add(new SortingMethod(Methods.MERGESORT, data));
+        for (Methods method: Methods.values()) methods.add(new SortingMethod(method, Values.data.clone()));
     }
 
     public ComparatorMethods() {
