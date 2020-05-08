@@ -15,8 +15,8 @@ public class PlayPause extends JLabel {
     private Consumer<MouseEvent> event;
 
     {
-        play = "/resources/play.png";
-        pause = "/resources/pause.png";
+        play = "/resources/image/play.png";
+        pause = "/resources/image/pause.png";
     }
 
     /**
@@ -45,8 +45,8 @@ public class PlayPause extends JLabel {
                     ImageIO.read(PlayPause.class.getResource(
                             (playPause = !playPause) ? play : pause
                     )).getScaledInstance(
-                            48,
-                            48,
+                            32,
+                            32,
                             Image.SCALE_DEFAULT
                     )
             ));
