@@ -2,7 +2,6 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Line2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -10,6 +9,7 @@ import java.util.HashMap;
 
 public class CanvasSorting extends JLabel {
     private ArrayList<Data> data;
+    private int index;
     private final HashMap<Integer, Point> lines;
 
     {
@@ -28,8 +28,10 @@ public class CanvasSorting extends JLabel {
         setPercentage();
     }
 
-    public void sorting(ArrayList<Data> data) {
+    public void sorting(ArrayList<Data> data, int index) {
+        if (index >= 10) throw new IllegalArgumentException("index >= 10");
         this.data = data;
+        this.index = index;
         repaint();
     }
 
@@ -51,7 +53,7 @@ public class CanvasSorting extends JLabel {
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        // paintArrow(g2);
+        paintArrow(g2);
         paintLines(g2);
     }
 
@@ -67,13 +69,12 @@ public class CanvasSorting extends JLabel {
 
     private void paintArrow(Graphics2D g2) {
         g2.setPaint(new Color(238, 70, 55));
+        int x = 10;
+        int y = lines.get(index).y;
         g2.fill(new Polygon(
-                new int[]{20, 120, 20, 50},
-                new int[]{20, 60, 120, 60},
+                new int[]{x, x + 12, x, x + 4},
+                new int[]{y - 2, y + 3, y + 10, y + 3},
                 4
         ));
-        g2.setPaint(new Color(229, 221, 221));
-        g2.setStroke(new BasicStroke(2));
-        g2.draw(new Line2D.Double(new Point(35, 105), new Point(105, 63)));
     }
 }
