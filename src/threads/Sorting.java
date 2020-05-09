@@ -9,13 +9,13 @@ public class Sorting extends Thread {
     private final Methods typeSorting;
     private final Time time;
     private boolean playPause;
-    private CanvasSorting canvas;
+    private final CanvasSorting canvas;
 
-    public Sorting(Methods typeSorting, JLabel time, boolean playPause) {
+    public Sorting(Methods typeSorting, JLabel time, boolean playPause, CanvasSorting canvas) {
         this.typeSorting = typeSorting;
         this.time = new Time(time);
         this.playPause = playPause;
-        canvas = new CanvasSorting(typeSorting);
+        this.canvas = canvas;
     }
 
     @Override
