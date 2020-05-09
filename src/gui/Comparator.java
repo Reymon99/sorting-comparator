@@ -11,18 +11,15 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class Comparator extends JPanel {
-    private final ArrayList<SortingMethod> methods;
+    private final static ArrayList<SortingMethod> methods;
     private final static JButton runAll;
     private final static JButton reset;
-
-    {
-        methods = new ArrayList<>();
-        for (Methods method: Methods.values()) methods.add(new SortingMethod(method));
-    }
 
     static {
         runAll = new JButton("Run All");
         reset = new JButton("Reset");
+        methods = new ArrayList<>();
+        for (Methods method: Methods.values()) methods.add(new SortingMethod(method));
     }
 
     public Comparator() {
@@ -31,9 +28,11 @@ public class Comparator extends JPanel {
     }
 
     private void init() {
+        JButton about = new JButton("About");
+        about.addActionListener(e -> about().setVisible(true));
         Constrains.addComp(
                 new View(methods(), this),
-                new Rectangle(0, 0, 1, 2),
+                new Rectangle(0, 0, 1, 3),
                 new Weight(1, 1),
                 new Insets(10, 20, 10, 5),
                 new Point(GridBagConstraints.CENTER, GridBagConstraints.BOTH)
@@ -43,7 +42,7 @@ public class Comparator extends JPanel {
                 new Rectangle(2, 0, 1, 1),
                 1,
                 new Insets(10, 20, 10, 20),
-                new Point(GridBagConstraints.SOUTH, GridBagConstraints.HORIZONTAL)
+                new Point(GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL)
         );
         Constrains.addComp(
                 new View(comparator(), this),
@@ -51,6 +50,13 @@ public class Comparator extends JPanel {
                 new Weight(1, 1),
                 new Insets(10, 20, 10, 20),
                 new Point(GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL)
+        );
+        Constrains.addCompX(
+                new View(about, this),
+                new Rectangle(2, 2, 1, 1),
+                1,
+                new Insets(100, 20, 10, 20),
+                new Point(GridBagConstraints.LINE_END, GridBagConstraints.HORIZONTAL)
         );
     }
 
@@ -129,5 +135,49 @@ public class Comparator extends JPanel {
                 new Insets(5, 10, 5, 5),
                 new Point(GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL)
         );
+    }
+
+    private JDialog about() {
+        final JDialog dialog = new JDialog();
+        dialog.setTitle("About");
+        dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        dialog.setLayout(new GridBagLayout());
+        JLabel sorting_comparator = new JLabel("Sorting Comparator", SwingConstants.CENTER);
+        sorting_comparator.setFont(new Font(Font.MONOSPACED, Font.BOLD, 28));
+        JTextArea area = new JTextArea(
+                "Animated comparison of internal sorting methods.\n\n\n" +
+                        "Developed by: Sergio Majé\n" +
+                        "Repository: github.com/Reymon99/sorting-comparator",
+                6, 30
+        );
+        area.setOpaque(false);
+        area.setEditable(false);
+        area.setLineWrap(true);
+        area.setWrapStyleWord(true);
+        Constrains.addComp(
+                new View(new CanvasSorting(), dialog.getContentPane()),
+                new Rectangle(0, 0, 1, 1),
+                new Weight(1, 1),
+                new Insets(30, 30, 20, 30),
+                new Point(GridBagConstraints.CENTER, GridBagConstraints.NONE)
+        );
+        Constrains.addCompX(
+                new View(sorting_comparator, dialog.getContentPane()),
+                new Rectangle(0, 1, 1, 1),
+                1,
+                new Insets(10, 10, 10, 10),
+                new Point(GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL)
+        );
+        Constrains.addComp(
+                new View(area, dialog.getContentPane()),
+                new Rectangle(0, 2, 1, 1),
+                new Weight(1, 1),
+                new Insets(10, 10, 10, 10),
+                new Point(GridBagConstraints.CENTER, GridBagConstraints.BOTH)
+        );
+        dialog.pack();
+        dialog.setLocationRelativeTo(this.getComponent(0));
+        dialog.setResizable(false);
+        return dialog;
     }
 }

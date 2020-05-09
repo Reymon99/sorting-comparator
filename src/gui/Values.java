@@ -41,11 +41,13 @@ public class Values extends JDialog implements KeyListener, ActionListener {
         init();
         pack();
         setLocationRelativeTo(panel);
+        setResizable(false);
     }
 
     private void init() {
         JTextArea info = new JTextArea(
-                "Se permite solo diez valores enteros no repetidos, separados por comas.",
+                "Only ten non-repeating integer values of the same number of digits are allowed, " +
+                        "separated by commas.",
                 2,
                 40
         );
@@ -77,7 +79,7 @@ public class Values extends JDialog implements KeyListener, ActionListener {
                 new View(areaData, getContentPane()),
                 new Rectangle(0, 1, 2, 1),
                 new Weight(1,1),
-                new Insets(5, 5, 5, 5),
+                new Insets(5, 5, 10, 5),
                 new Point(GridBagConstraints.CENTER, GridBagConstraints.BOTH)
         );
         Constrains.addCompX(
