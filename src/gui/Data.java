@@ -2,7 +2,7 @@ package gui;
 
 public class Data {
     private int data;
-    private int percentage;
+    private double percentage;
 
     public Data(int data) {
         this.data = data;
@@ -16,11 +16,11 @@ public class Data {
         this.data = data;
     }
 
-    public int getPercentage() {
+    public double getPercentage() {
         return percentage;
     }
 
     public void setPercentage(int max) {
-        this.percentage = 100 * data / max;
+        this.percentage = ((double) data/max);
     }
 }

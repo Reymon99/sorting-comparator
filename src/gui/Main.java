@@ -9,6 +9,7 @@ public class Main extends JFrame {
         setContentPane(new Comparator());
         pack();
         setLocationRelativeTo(null);
+        setResizable(false);
     }
 
     public static void main(String[] args) {

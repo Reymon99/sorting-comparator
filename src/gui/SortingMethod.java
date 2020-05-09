@@ -17,7 +17,7 @@ public class SortingMethod extends JPanel {
         super(new GridBagLayout());
         sorting = new Sorting(
                 method,
-                time = new JLabel("0 ms"),
+                time = new JLabel("0 s"),
                 true,
                 canvas = new CanvasSorting()
         );
