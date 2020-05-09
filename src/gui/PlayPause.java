@@ -12,7 +12,8 @@ public class PlayPause extends JLabel {
     private final String play;
     private final String pause;
     private boolean playPause;
-    private Consumer<MouseEvent> event;
+    private Consumer<MouseEvent> eventPlay;
+    private Consumer<MouseEvent> eventPause;
 
     {
         play = "/resources/image/play.png";
@@ -30,11 +31,7 @@ public class PlayPause extends JLabel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                playPause();
-                try {
-                    event.accept(e);
-                } catch (Exception exception) {// None
-                }
+                action();
             }
         });
     }
@@ -58,10 +55,31 @@ public class PlayPause extends JLabel {
     }
 
     /**
-     * Fija el evento del botón
-     * @param event evento Mouse
+     * Fija el evento Play del botón
+     * @param eventPlay evento Mouse
      */
-    public void setEvent(Consumer<MouseEvent> event) {
-        this.event = event;
+    public void setEventPlay(Consumer<MouseEvent> eventPlay) {
+        this.eventPlay = eventPlay;
+    }
+
+    /**
+     * Fija el evento Pause del botón
+     * @param eventPause evento Mouse
+     */
+    public void setEventPause(Consumer<MouseEvent> eventPause) {
+        this.eventPause = eventPause;
+    }
+
+    public void action() {
+        playPause();
+        try {
+            if (playPause) eventPlay.accept(null);
+            else eventPause.accept(null);
+        } catch (Exception e) {// quitar cuando sean todos definidos
+        }
+    }
+
+    public void setPlayPause(boolean playPause) {
+        this.playPause = playPause;
     }
 }

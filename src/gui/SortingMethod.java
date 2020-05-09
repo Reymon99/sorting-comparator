@@ -11,7 +11,12 @@ import java.awt.*;
 public class SortingMethod extends JPanel {
     private final Sorting sorting;
     private final JLabel time;
+    private final PlayPause playPause;
     private CanvasSorting canvas;
+
+    {
+        playPause = new PlayPause();
+    }
 
     public SortingMethod(Methods method){
         super(new GridBagLayout());
@@ -29,7 +34,6 @@ public class SortingMethod extends JPanel {
         name.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
         time.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
         time.setHorizontalAlignment(SwingConstants.RIGHT);
-        PlayPause playPause = new PlayPause();
         Constrains.addCompX(
                 new View(name, this),
                 new Rectangle(0, 0, 2, 1),
@@ -58,5 +62,10 @@ public class SortingMethod extends JPanel {
                 new Insets(2, 5, 5, 2),
                 new Point(GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL)
         );
+    }
+
+    public void run() {
+        playPause.setPlayPause(true);
+        playPause.action();
     }
 }

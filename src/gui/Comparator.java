@@ -82,7 +82,12 @@ public class Comparator extends JPanel {
         JButton runAll = new JButton("Run All");
         JButton restart = new JButton("Restart");
         JButton setValues = new JButton("Set Values");
+        restart.setEnabled(false);
 
+        runAll.addActionListener(e -> {
+            methods.forEach(SortingMethod::run);
+            runAll.setEnabled(false);
+        });
         setValues.addActionListener(e -> new Values((JPanel) getComponent(0)).setVisible(true));
 
         addComponents(panel, runAll, restart, setValues);
