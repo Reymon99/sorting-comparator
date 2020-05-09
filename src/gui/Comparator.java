@@ -12,10 +12,17 @@ import java.util.Optional;
 
 public class Comparator extends JPanel {
     private final ArrayList<SortingMethod> methods;
+    private final static JButton runAll;
+    private final static JButton reset;
 
     {
         methods = new ArrayList<>();
         for (Methods method: Methods.values()) methods.add(new SortingMethod(method));
+    }
+
+    static {
+        runAll = new JButton("Run All");
+        reset = new JButton("Reset");
     }
 
     public Comparator() {
@@ -79,18 +86,18 @@ public class Comparator extends JPanel {
     private JPanel buttons() {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(BorderFactory.createTitledBorder("Control Panel"));
-        JButton runAll = new JButton("Run All");
-        JButton restart = new JButton("Restart");
+
         JButton setValues = new JButton("Set Values");
-        restart.setEnabled(false);
+        reset.setEnabled(false);
 
         runAll.addActionListener(e -> {
             methods.forEach(SortingMethod::run);
             runAll.setEnabled(false);
         });
+        reset.addActionListener(e -> methods.forEach(SortingMethod::reset));
         setValues.addActionListener(e -> new Values((JPanel) getComponent(0)).setVisible(true));
 
-        addComponents(panel, runAll, restart, setValues);
+        addComponents(panel, runAll, reset, setValues);
         return panel;
     }
 

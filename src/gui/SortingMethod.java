@@ -12,7 +12,7 @@ public class SortingMethod extends JPanel {
     private final Sorting sorting;
     private final JLabel time;
     private final PlayPause playPause;
-    private CanvasSorting canvas;
+    private final CanvasSorting canvas;
 
     {
         playPause = new PlayPause();
@@ -67,5 +67,12 @@ public class SortingMethod extends JPanel {
     public void run() {
         playPause.setPlayPause(true);
         playPause.action();
+    }
+
+    public void reset() {
+        playPause.setPlayPause(false);
+        playPause.action();
+        time.setText("0 s");
+        canvas.sorting(canvas.setPercentage(), 0);
     }
 }

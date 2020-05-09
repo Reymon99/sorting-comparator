@@ -25,7 +25,7 @@ public class CanvasSorting extends JLabel {
         setOpaque(true);
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createRaisedBevelBorder());
-        setPercentage();
+        data = setPercentage();
     }
 
     public void sorting(ArrayList<Data> data, int index) {
@@ -35,13 +35,14 @@ public class CanvasSorting extends JLabel {
         repaint();
     }
 
-    private void setPercentage() {
-        data = new ArrayList<>();
-        Values.data.forEach(data -> this.data.add(new Data(data)));
+    public ArrayList<Data> setPercentage() {
+        ArrayList<Data> data = new ArrayList<>();
+        Values.data.forEach(dta -> data.add(new Data(dta)));
         int max = data.stream().max(
                 Comparator.comparing(Data::getData)
         ).orElse(new Data(0)).getData();
         data.forEach(e -> e.setPercentage(max));
+        return data;
     }
 
     public ArrayList<Data> getData() {
