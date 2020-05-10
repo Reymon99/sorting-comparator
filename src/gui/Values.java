@@ -181,7 +181,7 @@ public class Values extends JDialog implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        Values.data = dataTable();
         dispose();
     }
 
@@ -191,18 +191,17 @@ public class Values extends JDialog implements KeyListener, ActionListener {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
+    public void keyPressed(KeyEvent e) { }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
+    public void keyReleased(KeyEvent e) { }
 
     @Override
     public void dispose() {
-
+        dataModel.removeRow(0);
+        dataModel.removeRow(0);
+        dataModel.addRow(data.subList(0, 5).toArray());
+        dataModel.addRow(data.subList(5, 10).toArray());
         super.dispose();
     }
 }
