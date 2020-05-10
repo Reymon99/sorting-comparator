@@ -14,10 +14,14 @@ public class Comparator extends JPanel {
     private final static ArrayList<SortingMethod> methods;
     private final static JButton runAll;
     private final static JButton reset;
+    private final static JButton setValues;
+    private final static JButton comparator;
 
     static {
         runAll = new JButton("Run All");
         reset = new JButton("Reset");
+        setValues = new JButton("SetValues");
+        comparator = new JButton("Comparator");
         methods = new ArrayList<>();
         for (Methods method: Methods.values()) methods.add(new SortingMethod(method));
     }
@@ -82,10 +86,10 @@ public class Comparator extends JPanel {
             ))
                 comparatorTwo.setSelectedIndex(-1);
         });
-        JButton button = new JButton("Comparator");
-        button.addActionListener(e -> {});
 
-        addComponents(panel, comparatorOne, comparatorTwo, button);
+        comparator.addActionListener(e -> {});
+
+        addComponents(panel, comparatorOne, comparatorTwo, comparator);
         return panel;
     }
 
@@ -93,12 +97,13 @@ public class Comparator extends JPanel {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(BorderFactory.createTitledBorder("Control Panel"));
 
-        JButton setValues = new JButton("Set Values");
         reset.setEnabled(false);
 
         runAll.addActionListener(e -> {
             methods.forEach(SortingMethod::run);
             runAll.setEnabled(false);
+            setValues.setEnabled(false);
+            comparator.setEnabled(false);
         });
         reset.addActionListener(e -> methods.forEach(SortingMethod::reset));
         setValues.addActionListener(e -> new Values((JPanel) getComponent(0)).setVisible(true));
