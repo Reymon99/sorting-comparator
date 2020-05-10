@@ -7,7 +7,6 @@ import threads.Sorting;
 
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Method;
 
 public class SortingMethod extends JPanel {
     private final Sorting sorting;
@@ -79,5 +78,9 @@ public class SortingMethod extends JPanel {
 
     public String getMethod() {
         return sorting.getTypeSorting();
+    }
+
+    public int getSteps() {
+        return sorting.getSteps();
     }
 }

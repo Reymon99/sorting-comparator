@@ -8,8 +8,9 @@ import javax.swing.*;
 public class Sorting extends Thread {
     private final Methods typeSorting;
     private final Time time;
-    private boolean playPause;
     private final CanvasSorting canvas;
+    private boolean playPause;
+    private int steps;
 
     public Sorting(Methods typeSorting, JLabel time, boolean playPause, CanvasSorting canvas) {
         this.typeSorting = typeSorting;
@@ -33,5 +34,13 @@ public class Sorting extends Thread {
 
     public String getTypeSorting() {
         return typeSorting.toString();
+    }
+
+    public int getSteps() {
+        return steps;
+    }
+
+    public void setSteps(int steps) {
+        this.steps = steps;
     }
 }

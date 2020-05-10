@@ -7,12 +7,15 @@ import org.constrains.Weight;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Comparator extends JPanel {
     public final static ArrayList<SortingMethod> methods;
+    public final static DefaultListModel<String> model;
     public final static JButton runAll;
     public final static JButton reset;
     public final static JButton setValues;
@@ -23,6 +26,7 @@ public class Comparator extends JPanel {
         reset = new JButton("Reset");
         setValues = new JButton("SetValues");
         comparator = new JButton("Comparator");
+        model = new DefaultListModel<>();
         methods = new ArrayList<>();
         for (Methods method: Methods.values()) methods.add(new SortingMethod(method));
     }
@@ -37,7 +41,7 @@ public class Comparator extends JPanel {
         about.addActionListener(e -> about().setVisible(true));
         Constrains.addComp(
                 new View(methods(), this),
-                new Rectangle(0, 0, 1, 3),
+                new Rectangle(0, 0, 1, 4),
                 new Weight(1, 1),
                 new Insets(10, 20, 10, 5),
                 new Point(GridBagConstraints.CENTER, GridBagConstraints.BOTH)
@@ -46,21 +50,28 @@ public class Comparator extends JPanel {
                 new View(buttons(), this),
                 new Rectangle(2, 0, 1, 1),
                 1,
-                new Insets(10, 20, 10, 20),
+                new Insets(10, 20, 5, 20),
                 new Point(GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL)
         );
         Constrains.addComp(
                 new View(comparator(), this),
                 new Rectangle(2, 1, 1, 1),
                 new Weight(1, 1),
-                new Insets(10, 20, 10, 20),
+                new Insets(5, 20, 5, 20),
+                new Point(GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL)
+        );
+        Constrains.addComp(
+                new View(steps(), this),
+                new Rectangle(2, 2, 1, 1),
+                new Weight(1, 1),
+                new Insets(5, 20, 30, 20),
                 new Point(GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL)
         );
         Constrains.addCompX(
                 new View(about, this),
-                new Rectangle(2, 2, 1, 1),
+                new Rectangle(2, 3, 1, 1),
                 1,
-                new Insets(100, 20, 10, 20),
+                new Insets(30, 20, 10, 20),
                 new Point(GridBagConstraints.LINE_END, GridBagConstraints.HORIZONTAL)
         );
     }
@@ -126,6 +137,33 @@ public class Comparator extends JPanel {
     private JPanel methods() {
         JPanel panel = new JPanel(new GridLayout(3, 3, 10, 10));
         methods.forEach(panel::add);
+        return panel;
+    }
+
+    private JPanel steps() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 3, 3));
+        panel.setBorder(BorderFactory.createTitledBorder("Number of Steps"));
+
+        methods.forEach(e -> model.addElement(e.getMethod() + ": " + e.getSteps()));
+
+        JList<String> list = new JList<>(model);
+        list.setOpaque(false);
+        list.setCellRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                                                          boolean isSelected, boolean cellHasFocus) {
+                JLabel component = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                Dimension dimension = new Dimension(130, 30);
+                component.setMinimumSize(dimension);
+                component.setPreferredSize(dimension);
+                component.setMaximumSize(dimension);
+                component.setOpaque(false);
+
+                return component;
+            }
+        });
+
+        panel.add(list);
         return panel;
     }
 
