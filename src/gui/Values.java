@@ -182,6 +182,7 @@ public class Values extends JDialog implements KeyListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Values.data = dataTable();
+        Comparator.methods.forEach(SortingMethod::reset);
         dispose();
     }
 

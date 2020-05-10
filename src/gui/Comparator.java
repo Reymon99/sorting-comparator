@@ -11,11 +11,11 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class Comparator extends JPanel {
-    private final static ArrayList<SortingMethod> methods;
-    private final static JButton runAll;
-    private final static JButton reset;
-    private final static JButton setValues;
-    private final static JButton comparator;
+    public final static ArrayList<SortingMethod> methods;
+    public final static JButton runAll;
+    public final static JButton reset;
+    public final static JButton setValues;
+    public final static JButton comparator;
 
     static {
         runAll = new JButton("Run All");
