@@ -7,6 +7,7 @@ import threads.Sorting;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Method;
 
 public class SortingMethod extends JPanel {
     private final Sorting sorting;
@@ -74,5 +75,9 @@ public class SortingMethod extends JPanel {
         playPause.action();
         time.setText("0 s");
         canvas.sorting(canvas.setPercentage(), 0);
+    }
+
+    public String getMethod() {
+        return sorting.getTypeSorting();
     }
 }

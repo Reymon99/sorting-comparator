@@ -9,6 +9,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Comparator extends JPanel {
     public final static ArrayList<SortingMethod> methods;
@@ -86,9 +87,19 @@ public class Comparator extends JPanel {
             ))
                 comparatorTwo.setSelectedIndex(-1);
         });
-
-        comparator.addActionListener(e -> {});
-
+        comparator.addActionListener(e -> {
+            if (Optional.ofNullable(comparatorOne.getSelectedItem()).isPresent() &&
+                    Optional.ofNullable(comparatorTwo.getSelectedItem()).isPresent()) {
+                methods.get(comparatorOne.getSelectedIndex()).run();
+                methods.get(comparatorTwo.getSelectedIndex()).run();
+                runAll.setEnabled(false);
+                reset.setEnabled(false);
+                setValues.setEnabled(false);
+                comparator.setEnabled(false);
+                comparatorOne.setEnabled(false);
+                comparatorTwo.setEnabled(false);
+            }
+        });
         addComponents(panel, comparatorOne, comparatorTwo, comparator);
         return panel;
     }
