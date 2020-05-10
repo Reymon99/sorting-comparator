@@ -21,13 +21,11 @@ public class Values extends JDialog implements KeyListener, ActionListener {
     public static ArrayList<Integer> data;
     private final DefaultTableModel dataModel;
     private final JButton set;
-    private final JButton cancel;
     private final JSpinner digits;
 
     {
         dataModel = dataModel();
         set = new JButton("Set Values");
-        cancel = new JButton("Cancel");
         digits = new JSpinner(new SpinnerNumberModel(
                 String.valueOf(data.get(0)).length(),
                 2, 5, 1
@@ -69,6 +67,7 @@ public class Values extends JDialog implements KeyListener, ActionListener {
         dataModel.addRow(data.subList(5, 10).toArray());
 
         JTable dataTable = dataTable(dataModel);
+        JButton cancel = new JButton("Cancel");
 
         dataTable.addKeyListener(this);
         set.addActionListener(this);
