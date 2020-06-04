@@ -19,6 +19,7 @@ public class SortingMethod extends JPanel {
         playPause = new PlayPause();
         steps = new JLabel("st: 0");
         swaps = new JLabel("sw: 0");
+        canvas = new CanvasSorting();
     }
 
     public SortingMethod(Methods method){
@@ -26,8 +27,7 @@ public class SortingMethod extends JPanel {
         sorting = new Sorting(
                 method,
                 this,
-                true,
-                canvas = new CanvasSorting()
+                true
         );
         init();
     }
@@ -93,7 +93,27 @@ public class SortingMethod extends JPanel {
         return sorting.getTypeSorting();
     }
 
-    public int getSteps() {
-        return sorting.getSteps();
+    public void setSteps(int steps) {
+        this.steps.setText("st: " + steps);
+    }
+
+    public void setSwaps(int swaps) {
+        this.steps.setText("sw: " + swaps);
+    }
+
+    public JLabel getSteps() {
+        return steps;
+    }
+
+    public JLabel getSwaps() {
+        return swaps;
+    }
+
+    public CanvasSorting getCanvas() {
+        return canvas;
+    }
+
+    public PlayPause getPlayPause() {
+        return playPause;
     }
 }
