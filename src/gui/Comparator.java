@@ -179,7 +179,7 @@ public class Comparator extends JPanel {
         area.setLineWrap(true);
         area.setWrapStyleWord(true);
         Constrains.addComp(
-                new View(new CanvasSorting(), dialog.getContentPane()),
+                new View(new CanvasSorting(1), dialog.getContentPane()),
                 new Rectangle(0, 0, 1, 1),
                 new Weight(1, 1),
                 new Insets(30, 30, 20, 30),

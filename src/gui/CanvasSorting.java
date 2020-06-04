@@ -9,15 +9,16 @@ import java.util.HashMap;
 
 public class CanvasSorting extends JLabel {
     private ArrayList<Data> data;
-    private int index;
     private final HashMap<Integer, Point> lines;
+    private final ArrayList<Integer> numberOfPointers;
 
     {
+        numberOfPointers = new ArrayList<>();
         lines = new HashMap<>();
         for (int i = 0; i < 10; i++) lines.put(i, new Point(30, i == 0 ? 8 : 14 * i + 8));
     }
 
-    public CanvasSorting() {
+    public CanvasSorting(int numberOfPointers) {
         Dimension dimension = new Dimension(140, 150);
         setMinimumSize(dimension);
         setPreferredSize(dimension);
@@ -26,12 +27,16 @@ public class CanvasSorting extends JLabel {
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createRaisedBevelBorder());
         data = setPercentage();
+        for (int pointer = 0; pointer < numberOfPointers; pointer++) this.numberOfPointers.add(pointer);
     }
 
-    public void sorting(ArrayList<Data> data, int index) {
-        if (index >= 10) throw new IllegalArgumentException("index >= 10");
-        this.data = data;
-        this.index = index;
+    public void sorting(int... pointers) {
+        if (pointers.length != numberOfPointers.size())
+            throw new IndexOutOfBoundsException("pointer.length !=" + numberOfPointers.size());
+        for (int i : pointers) if (i >= data.size())
+            throw new IllegalArgumentException("pointer >= " + data.size());
+        for (int pointer = 0; pointer < pointers.length; pointer++)
+            numberOfPointers.set(pointer, pointers[pointer]);
         repaint();
     }
 
@@ -47,6 +52,10 @@ public class CanvasSorting extends JLabel {
 
     public ArrayList<Data> getData() {
         return data;
+    }
+
+    public void setData(ArrayList<Data> data) {
+        this.data = data;
     }
 
     @Override
@@ -71,11 +80,13 @@ public class CanvasSorting extends JLabel {
     private void paintArrow(Graphics2D g2) {
         g2.setPaint(new Color(238, 70, 55));
         int x = 10;
-        int y = lines.get(index).y;
-        g2.fill(new Polygon(
-                new int[]{x, x + 12, x, x + 4},
-                new int[]{y - 2, y + 3, y + 10, y + 3},
-                4
-        ));
+        numberOfPointers.forEach(e -> {
+            int y = lines.get(e).y;
+            g2.fill(new Polygon(
+                    new int[]{x, x + 12, x, x + 4},
+                    new int[]{y - 2, y + 3, y + 10, y + 3},
+                    4
+            ));
+        });
     }
 }

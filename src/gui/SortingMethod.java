@@ -19,7 +19,7 @@ public class SortingMethod extends JPanel {
         playPause = new PlayPause();
         steps = new JLabel("st: 0");
         swaps = new JLabel("sw: 0");
-        canvas = new CanvasSorting();
+        canvas = new CanvasSorting(1);
     }
 
     public SortingMethod(Methods method){
