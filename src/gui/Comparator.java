@@ -22,7 +22,7 @@ public class Comparator extends JPanel {
         sortSpeed = 50;
         runAll = new JButton("Run All");
         reset = new JButton("Reset");
-        setValues = new JButton("SetValues");
+        setValues = new JButton("Set Values");
         comparator = new JButton("Comparator");
         methods = new ArrayList<>();
         for (Methods method: Methods.values()) methods.add(new SortingMethod(method));
