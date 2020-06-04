@@ -15,7 +15,6 @@ import java.util.stream.Stream;
 
 public class Comparator extends JPanel {
     public final static ArrayList<SortingMethod> methods;
-    public final static DefaultListModel<String> model;
     public final static JButton runAll;
     public final static JButton reset;
     public final static JButton setValues;
@@ -26,7 +25,6 @@ public class Comparator extends JPanel {
         reset = new JButton("Reset");
         setValues = new JButton("SetValues");
         comparator = new JButton("Comparator");
-        model = new DefaultListModel<>();
         methods = new ArrayList<>();
         for (Methods method: Methods.values()) methods.add(new SortingMethod(method));
     }
@@ -58,13 +56,6 @@ public class Comparator extends JPanel {
                 new Rectangle(2, 1, 1, 1),
                 new Weight(1, 1),
                 new Insets(5, 20, 5, 20),
-                new Point(GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL)
-        );
-        Constrains.addComp(
-                new View(steps(), this),
-                new Rectangle(2, 2, 1, 1),
-                new Weight(1, 1),
-                new Insets(5, 20, 30, 20),
                 new Point(GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL)
         );
         Constrains.addCompX(
@@ -137,33 +128,6 @@ public class Comparator extends JPanel {
     private JPanel methods() {
         JPanel panel = new JPanel(new GridLayout(3, 3, 10, 10));
         methods.forEach(panel::add);
-        return panel;
-    }
-
-    private JPanel steps() {
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 3, 3));
-        panel.setBorder(BorderFactory.createTitledBorder("Number of Steps"));
-
-        methods.forEach(e -> model.addElement(e.getMethod() + ": " + e.getSteps()));
-
-        JList<String> list = new JList<>(model);
-        list.setOpaque(false);
-        list.setCellRenderer(new DefaultListCellRenderer() {
-            @Override
-            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
-                                                          boolean isSelected, boolean cellHasFocus) {
-                JLabel component = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                Dimension dimension = new Dimension(130, 30);
-                component.setMinimumSize(dimension);
-                component.setPreferredSize(dimension);
-                component.setMaximumSize(dimension);
-                component.setOpaque(false);
-
-                return component;
-            }
-        });
-
-        panel.add(list);
         return panel;
     }
 

@@ -10,19 +10,22 @@ import java.awt.*;
 
 public class SortingMethod extends JPanel {
     private final Sorting sorting;
-    private final JLabel time;
+    private final JLabel steps;
+    private final JLabel swaps;
     private final PlayPause playPause;
     private final CanvasSorting canvas;
 
     {
         playPause = new PlayPause();
+        steps = new JLabel("st: 0");
+        swaps = new JLabel("sw: 0");
     }
 
     public SortingMethod(Methods method){
         super(new GridBagLayout());
         sorting = new Sorting(
                 method,
-                time = new JLabel("0 s"),
+                this,
                 true,
                 canvas = new CanvasSorting()
         );
@@ -32,18 +35,20 @@ public class SortingMethod extends JPanel {
     private void init() {
         JLabel name = new JLabel(sorting.getTypeSorting(), SwingConstants.CENTER);
         name.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
-        time.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
-        time.setHorizontalAlignment(SwingConstants.RIGHT);
+        steps.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
+        steps.setHorizontalAlignment(SwingConstants.RIGHT);
+        swaps.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
+        swaps.setHorizontalAlignment(SwingConstants.RIGHT);
         Constrains.addCompX(
                 new View(name, this),
-                new Rectangle(0, 0, 2, 1),
+                new Rectangle(0, 0, 3, 1),
                 1,
                 new Insets(5, 2, 3, 2),
                 new Point(GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL)
         );
         Constrains.addComp(
                 new View(canvas, this),
-                new Rectangle(0, 1, 2, 1),
+                new Rectangle(0, 1, 3, 1),
                 new Weight(1, 1),
                 new Insets(2, 2, 2, 2),
                 new Point(GridBagConstraints.CENTER, GridBagConstraints.NONE)
@@ -56,11 +61,18 @@ public class SortingMethod extends JPanel {
                 new Point(GridBagConstraints.WEST, GridBagConstraints.NONE)
         );
         Constrains.addCompX(
-                new View(time, this),
+                new View(steps, this),
                 new Rectangle(1, 2, 1, 1),
                 1,
-                new Insets(2, 5, 5, 2),
+                new Insets(2, 5, 5, 1),
                 new Point(GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL)
+        );
+        Constrains.addCompX(
+                new View(swaps, this),
+                new Rectangle(2, 2, 1, 1),
+                1,
+                new Insets(2, 0, 5, 12),
+                new Point(GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL)
         );
     }
 
@@ -72,7 +84,8 @@ public class SortingMethod extends JPanel {
     public void reset() {
         playPause.setPlayPause(false);
         playPause.action();
-        time.setText("0 s");
+        steps.setText("st: 0");
+        swaps.setText("sw: 0");
         canvas.sorting(canvas.setPercentage(), 0);
     }
 

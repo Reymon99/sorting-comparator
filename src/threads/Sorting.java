@@ -2,19 +2,18 @@ package threads;
 
 import gui.CanvasSorting;
 import gui.Methods;
-
-import javax.swing.*;
+import gui.SortingMethod;
 
 public class Sorting extends Thread {
     private final Methods typeSorting;
-    private final Time time;
+    private final SortingMethod method;
     private final CanvasSorting canvas;
     private boolean playPause;
     private int steps;
 
-    public Sorting(Methods typeSorting, JLabel time, boolean playPause, CanvasSorting canvas) {
+    public Sorting(Methods typeSorting, SortingMethod method, boolean playPause, CanvasSorting canvas) {
         this.typeSorting = typeSorting;
-        this.time = new Time(time);
+        this.method = method;
         this.playPause = playPause;
         this.canvas = canvas;
     }
