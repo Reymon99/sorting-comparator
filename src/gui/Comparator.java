@@ -7,11 +7,8 @@ import org.constrains.Weight;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Comparator extends JPanel {
     public final static ArrayList<SortingMethod> methods;
@@ -19,8 +16,10 @@ public class Comparator extends JPanel {
     public final static JButton reset;
     public final static JButton setValues;
     public final static JButton comparator;
+    public static int sortSpeed;
 
     static {
+        sortSpeed = 50;
         runAll = new JButton("Run All");
         reset = new JButton("Reset");
         setValues = new JButton("SetValues");
@@ -56,6 +55,13 @@ public class Comparator extends JPanel {
                 new Rectangle(2, 1, 1, 1),
                 new Weight(1, 1),
                 new Insets(5, 20, 5, 20),
+                new Point(GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL)
+        );
+        Constrains.addComp(
+                new View(sortSpeed(), this),
+                new Rectangle(2, 2, 1, 1),
+                new Weight(1, 1),
+                new Insets(5, 20, 230, 20),
                 new Point(GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL)
         );
         Constrains.addCompX(
@@ -197,5 +203,37 @@ public class Comparator extends JPanel {
         dialog.setLocationRelativeTo(this.getComponent(0));
         dialog.setResizable(false);
         return dialog;
+    }
+
+    private JPanel sortSpeed() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBorder(BorderFactory.createTitledBorder("Sort Speed"));
+        JLabel numberOfSpeed = new JLabel(String.valueOf(sortSpeed), SwingConstants.CENTER);
+        numberOfSpeed.setFont(new Font(Font.MONOSPACED, Font.BOLD, 23));
+        JSlider speed = new JSlider(JSlider.HORIZONTAL, 50, 300, sortSpeed);
+        speed.setToolTipText("Tiempo de retardo en milliseconds");
+        speed.setMinorTickSpacing(50);
+        speed.setMajorTickSpacing(50);
+        speed.setPaintTicks(true);
+        speed.setPaintLabels(true);
+        speed.addChangeListener(e -> {
+            sortSpeed = speed.getValue();
+            numberOfSpeed.setText(String.valueOf(sortSpeed));
+        });
+        Constrains.addCompX(
+                new View(numberOfSpeed, panel),
+                new Rectangle(0, 0, 1, 1),
+                1,
+                new Insets(2, 10, 5, 5),
+                new Point(GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL)
+        );
+        Constrains.addCompX(
+                new View(speed, panel),
+                new Rectangle(0, 1, 1, 1),
+                1,
+                new Insets(5, 10, 5, 5),
+                new Point(GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL)
+        );
+        return panel;
     }
 }
