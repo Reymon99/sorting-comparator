@@ -37,8 +37,10 @@ public class SortingMethod extends JPanel {
         name.setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
         steps.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
         steps.setHorizontalAlignment(SwingConstants.RIGHT);
-        swaps.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
-        swaps.setHorizontalAlignment(SwingConstants.RIGHT);
+        steps.setToolTipText("Number of steps");
+        swaps.setFont(steps.getFont());
+        swaps.setHorizontalAlignment(steps.getHorizontalAlignment());
+        swaps.setToolTipText("Number of swaps");
         playPause.setEventPlay(e -> run());
         playPause.setEventPause(e -> {});
         Constrains.addCompX(
@@ -88,7 +90,8 @@ public class SortingMethod extends JPanel {
         playPause.action();
         steps.setText("st: 0");
         swaps.setText("sw: 0");
-        canvas.sorting(canvas.setPercentage(), 0);
+        canvas.setData(canvas.setPercentage());
+        canvas.sorting(0);
     }
 
     public String getMethod() {
@@ -100,7 +103,7 @@ public class SortingMethod extends JPanel {
     }
 
     public void setSwaps(int swaps) {
-        this.steps.setText("sw: " + swaps);
+        this.swaps.setText("sw: " + swaps);
     }
 
     public JLabel getSteps() {
