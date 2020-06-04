@@ -39,6 +39,8 @@ public class SortingMethod extends JPanel {
         steps.setHorizontalAlignment(SwingConstants.RIGHT);
         swaps.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
         swaps.setHorizontalAlignment(SwingConstants.RIGHT);
+        playPause.setEventPlay(e -> run());
+        playPause.setEventPause(e -> {});
         Constrains.addCompX(
                 new View(name, this),
                 new Rectangle(0, 0, 3, 1),
@@ -77,8 +79,8 @@ public class SortingMethod extends JPanel {
     }
 
     public void run() {
-        playPause.setPlayPause(true);
-        playPause.action();
+        playPause.setPlayPause(false);
+        sorting.start();
     }
 
     public void reset() {

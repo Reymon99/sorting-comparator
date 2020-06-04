@@ -24,7 +24,9 @@ public class PlayPause extends JLabel {
      * Botón Play and Pause
      */
     public PlayPause() {
-        playPause = false;
+        playPause = true;
+        eventPause = e -> {};
+        eventPlay = e -> {};
         playPause();
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         setHorizontalAlignment(CENTER);
@@ -43,7 +45,7 @@ public class PlayPause extends JLabel {
         try {
             setIcon(new ImageIcon(
                     ImageIO.read(PlayPause.class.getResource(
-                            (playPause = !playPause) ? play : pause
+                            playPause ? play : pause
                     )).getScaledInstance(
                             32,
                             32,
@@ -71,15 +73,12 @@ public class PlayPause extends JLabel {
     }
 
     public void action() {
-        playPause();
-        try {
-            if (playPause) eventPlay.accept(null);
-            else eventPause.accept(null);
-        } catch (Exception e) {// quitar cuando sean todos definidos
-        }
+        if (playPause) eventPlay.accept(null);
+        else eventPause.accept(null);
     }
 
     public void setPlayPause(boolean playPause) {
         this.playPause = playPause;
+        playPause();
     }
 }
