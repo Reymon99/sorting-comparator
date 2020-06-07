@@ -10,5 +10,6 @@ Animación y comparación de los principales métodos de ordenamiento interno
 * Inserción
 * MergeSort
 
-
-![frame](src/resources/image/frame.png)
+<p align="center">
+  <img src="src/resources/image/frame.png">
+</p>
