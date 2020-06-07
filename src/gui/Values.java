@@ -27,7 +27,7 @@ public class Values extends JDialog implements KeyListener, ActionListener {
         dataModel = dataModel();
         set = new JButton("Set Values");
         digits = new JSpinner(new SpinnerNumberModel(
-                String.valueOf(data.get(0)).length(),
+                numberOfDigits(data.get(0)),
                 2, 5, 1
         ));
     }
@@ -134,16 +134,9 @@ public class Values extends JDialog implements KeyListener, ActionListener {
             @Override
             public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
                 Component component = super.prepareRenderer(renderer, row, column);
-                Color color;
-                boolean enabled;
-                String number = getValueAt(row, column).toString();
-                if (nDigits(number) && !isNegative(number) && !repeatedNumber(number)) {
-                    color = Color.WHITE;
-                    enabled = true;
-                } else {
-                    color = Color.RED;
-                    enabled = false;
-                }
+                Integer number = (Integer) getValueAt(row, column);
+                boolean enabled = nDigits(number) && !isNegative(number) && !repeatedNumber(number);
+                Color color = enabled ? Color.WHITE : Color.RED;
                 digits.setEnabled(enabled);
                 set.setEnabled(enabled && !changedData());
                 component.setBackground(color);
@@ -152,12 +145,16 @@ public class Values extends JDialog implements KeyListener, ActionListener {
         };
     }
 
-    private boolean nDigits(String number) {
-        return number.length() == Integer.parseInt(digits.getValue().toString());
+    private boolean nDigits(Integer number) {
+        return digits.getValue().equals(numberOfDigits(number));
     }
 
-    private boolean isNegative(String number) {
-        return number.contains("-");
+    private int numberOfDigits(int number) {
+        return (int) Math.log10(number) + 1;
+    }
+
+    private boolean isNegative(Integer number) {
+        return number.toString().contains("-");
     }
 
     private boolean changedData() {
@@ -165,9 +162,8 @@ public class Values extends JDialog implements KeyListener, ActionListener {
         return dataTable().stream().allMatch(e -> e.equals(data.get(i.getAndIncrement())));
     }
 
-    private boolean repeatedNumber(String number) {
-        int n = Integer.parseInt(number);
-        return dataTable().stream().filter(e -> e == n).count() > 1;
+    private boolean repeatedNumber(int number) {
+        return dataTable().stream().filter(e -> e == number).count() > 1;
     }
 
     private ArrayList<Integer> dataTable() {
