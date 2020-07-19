@@ -19,7 +19,7 @@ public class Comparator extends JPanel {
     public static int sortSpeed;
 
     static {
-        sortSpeed = 50;
+        sortSpeed = 200;
         runAll = new JButton("Run All");
         reset = new JButton("Reset");
         setValues = new JButton("Set Values");
@@ -210,10 +210,10 @@ public class Comparator extends JPanel {
         panel.setBorder(BorderFactory.createTitledBorder("Sort Speed"));
         JLabel numberOfSpeed = new JLabel(String.valueOf(sortSpeed), SwingConstants.CENTER);
         numberOfSpeed.setFont(new Font(Font.MONOSPACED, Font.BOLD, 23));
-        JSlider speed = new JSlider(JSlider.HORIZONTAL, 50, 300, sortSpeed);
-        speed.setToolTipText("Tiempo de retardo en milliseconds");
-        speed.setMinorTickSpacing(50);
-        speed.setMajorTickSpacing(50);
+        JSlider speed = new JSlider(JSlider.HORIZONTAL, 200, 600, sortSpeed);
+        speed.setToolTipText("Delay time in milliseconds");
+        speed.setMinorTickSpacing(200);
+        speed.setMajorTickSpacing(100);
         speed.setPaintTicks(true);
         speed.setPaintLabels(true);
         speed.addChangeListener(e -> {
