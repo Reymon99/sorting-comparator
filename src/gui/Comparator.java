@@ -171,7 +171,7 @@ public class Comparator extends JPanel {
         JTextArea area = new JTextArea(
                 "Animated comparison of internal sorting methods.\n\n\n" +
                         "Developed by: Sergio Majé\n" +
-                        "Repository: github.com/Reymon99/sorting-comparator",
+                        "Repository: github.com/smaje99/sorting-comparator",
                 6, 30
         );
         area.setOpaque(false);
