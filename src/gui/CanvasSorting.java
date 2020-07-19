@@ -27,7 +27,7 @@ public class CanvasSorting extends JLabel {
         setBackground(Color.WHITE);
         setBorder(BorderFactory.createRaisedBevelBorder());
         data = setPercentage();
-        for (int pointer = 0; pointer < numberOfPointers; pointer++) this.numberOfPointers.add(pointer);
+        for (int pointer = 0; pointer < numberOfPointers; pointer++) this.numberOfPointers.add(0);
     }
 
     public void sorting(int... pointers) {

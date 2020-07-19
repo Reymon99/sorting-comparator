@@ -19,11 +19,11 @@ public class SortingMethod extends JPanel {
         playPause = new PlayPause();
         steps = new JLabel("st: 0");
         swaps = new JLabel("sw: 0");
-        canvas = new CanvasSorting(1);
     }
 
     public SortingMethod(Methods method){
         super(new GridBagLayout());
+        canvas = new CanvasSorting(method.getPointers());
         sorting = new Sorting(
                 method,
                 this,

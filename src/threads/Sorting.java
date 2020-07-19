@@ -47,7 +47,7 @@ public class Sorting extends Thread {
         Data dataTemp = data.get(i);
         data.set(i, data.get(j));
         data.set(j, dataTemp);
-        method.getCanvas().sorting(i);
+        method.getCanvas().sorting(i, j);
         try {
             Thread.sleep(Comparator.sortSpeed);
         } catch (InterruptedException e) {  // None
