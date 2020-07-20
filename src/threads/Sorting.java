@@ -47,11 +47,18 @@ public class Sorting extends Thread {
         Data dataTemp = data.get(i);
         data.set(i, data.get(j));
         data.set(j, dataTemp);
-        method.getCanvas().sorting(i, j);
+    }
+
+    private void selection(int... pointers) {
+        method.getCanvas().sorting(pointers);
         try {
             Thread.sleep(Comparator.sortSpeed);
         } catch (InterruptedException e) {  // None
         }
+    }
+
+    private void increaseSteps() {
+        method.setSteps(++steps);
     }
 
     public void shellSort(ArrayList<Data> data) {
@@ -63,12 +70,13 @@ public class Sorting extends Thread {
                 j = i - skip;
                 while (j >= 0) {
                     k = j + skip;
+                    selection(j, k);
                     if (data.get(j).getData() <= data.get(k).getData()) j = -1;
                     else {
                         swap(data, j, k);
                         j -= skip;
                     }
-                    method.setSteps(++steps);
+                    increaseSteps();
                 }
             }
             skip /= 2;
