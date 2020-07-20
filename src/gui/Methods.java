@@ -4,7 +4,7 @@ public enum Methods {
     BUBBLE("Simple Bubble", 1),
     IMPROVED_BUBBLE("Improved Bubble", 1),
     OPTIMIZED_BUBBLE("Optimized Bubble", 1),
-    QUICKSORT("QuickSort", 1),
+    QUICKSORT("QuickSort", 2),
     SHELLSORT("ShellSort", 2),
     RADIXSORT("RadixSort", 1),
     SELECTION("Selection", 1),

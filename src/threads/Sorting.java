@@ -24,14 +24,17 @@ public class Sorting extends Thread {
 
     @Override
     public void run() {
+        ArrayList<Data> data = method.getCanvas().getData();
         switch (typeSorting) {
             case BUBBLE:
             case IMPROVED_BUBBLE:
             case OPTIMIZED_BUBBLE:
+                break;
             case QUICKSORT:
+                quickSort(data, 0, data.size() - 1);
                 break;
             case SHELLSORT:
-                shellSort(method.getCanvas().getData());
+                shellSort(data);
                 break;
             case RADIXSORT:
             case SELECTION:
@@ -39,6 +42,7 @@ public class Sorting extends Thread {
             case MERGESORT:
                 break;
         }
+        method.updateUI();
         method.getPlayPause().setPlayPause(true);
     }
 
@@ -61,7 +65,26 @@ public class Sorting extends Thread {
         method.setSteps(++steps);
     }
 
-    public void shellSort(ArrayList<Data> data) {
+    private void quickSort(ArrayList<Data> data, int first, int last) {
+        int i = first;
+        int j = last;
+        int pivote = data.get((first + last) / 2).getData();
+        do {
+            while (data.get(i).getData() < pivote) i++;
+            while (data.get(j).getData() > pivote) j--;
+            selection(i, j);
+            if (i <= j) {
+                if (i != j) swap(data, i, j);
+                i++;
+                j--;
+            }
+            increaseSteps();
+        } while (i <= j);
+        if (first < j) quickSort(data, first, j);
+        if (i < last) quickSort(data, i, last);
+    }
+
+    private void shellSort(ArrayList<Data> data) {
         int j;
         int k;
         int skip = data.size() / 2;
@@ -81,7 +104,6 @@ public class Sorting extends Thread {
             }
             skip /= 2;
         }
-        method.updateUI();
     }
 
     public boolean isPlayPause() {
