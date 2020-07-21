@@ -1,5 +1,6 @@
 package threads;
 
+import def.Sort;
 import gui.Comparator;
 import gui.Data;
 import gui.Methods;
@@ -28,7 +29,9 @@ public class Sorting extends Thread {
         switch (typeSorting) {
             case BUBBLE:
             case IMPROVED_BUBBLE:
+                break;
             case OPTIMIZED_BUBBLE:
+                optimizedBubbleSort(data);
                 break;
             case QUICKSORT:
                 quickSort(data, 0, data.size() - 1);
@@ -51,6 +54,7 @@ public class Sorting extends Thread {
         Data dataTemp = data.get(i);
         data.set(i, data.get(j));
         data.set(j, dataTemp);
+        selection(i, j);
     }
 
     private void selection(int... pointers) {
@@ -63,6 +67,23 @@ public class Sorting extends Thread {
 
     private void increaseSteps() {
         method.setSteps(++steps);
+    }
+
+    private void optimizedBubbleSort(ArrayList<Data> data) {
+        int length = data.size();
+        boolean swapped = true;
+        while (swapped) {
+            swapped = false;
+            for (int i = 1; i < length; i++) {
+                selection(i, i - 1);
+                if (data.get(i).getData() < data.get(i - 1).getData()) {
+                    swap(data, i, i -1);
+                    swapped = true;
+                }
+                increaseSteps();
+            }
+            length--;
+        }
     }
 
     private void quickSort(ArrayList<Data> data, int first, int last) {
