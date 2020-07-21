@@ -29,6 +29,7 @@ public class SortingMethod extends JPanel {
                 this,
                 true
         );
+        setToolTipText("Number of " + method.toString() + " pointers: " + method.getPointers());
         init();
     }
 
