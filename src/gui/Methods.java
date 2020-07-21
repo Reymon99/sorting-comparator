@@ -7,7 +7,7 @@ public enum Methods {
     QUICKSORT("QuickSort", 2),
     SHELLSORT("ShellSort", 2),
     RADIXSORT("RadixSort", 1),
-    SELECTION("Selection", 1),
+    SELECTION("Selection", 3),
     INSERTION("Insertion", 1),
     MERGESORT("MergeSort", 1);
     private final String name;

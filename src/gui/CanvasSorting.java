@@ -32,7 +32,7 @@ public class CanvasSorting extends JLabel {
 
     public void sorting(int... pointers) {
         if (pointers.length != numberOfPointers.size())
-            throw new IndexOutOfBoundsException("pointer.length !=" + numberOfPointers.size());
+            throw new IndexOutOfBoundsException("pointer.length != " + numberOfPointers.size());
         for (int i : pointers) if (i >= data.size())
             throw new IllegalArgumentException("pointer >= " + data.size());
         for (int pointer = 0; pointer < pointers.length; pointer++)

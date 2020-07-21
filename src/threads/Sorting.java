@@ -1,6 +1,5 @@
 package threads;
 
-import def.Sort;
 import gui.Comparator;
 import gui.Data;
 import gui.Methods;
@@ -40,7 +39,10 @@ public class Sorting extends Thread {
                 shellSort(data);
                 break;
             case RADIXSORT:
+                break;
             case SELECTION:
+                selection(data);
+                break;
             case INSERTION:
             case MERGESORT:
                 break;
@@ -50,15 +52,20 @@ public class Sorting extends Thread {
     }
 
     private void swap(ArrayList<Data> data, int i, int j) {
+        swap(data, i, j, i, j);
+    }
+
+    private void swap(ArrayList<Data> data, int i, int j, int... pointers) {
         method.setSwaps(++swaps);
         Data dataTemp = data.get(i);
         data.set(i, data.get(j));
         data.set(j, dataTemp);
-        selection(i, j);
+        selection(pointers);
     }
 
     private void selection(int... pointers) {
         method.getCanvas().sorting(pointers);
+        method.updateUI();
         try {
             Thread.sleep(Comparator.sortSpeed);
         } catch (InterruptedException e) {  // None
@@ -124,6 +131,22 @@ public class Sorting extends Thread {
                 }
             }
             skip /= 2;
+        }
+    }
+    
+    private void selection(ArrayList<Data> data) {
+        int length = data.size();
+        int min;
+        int j;
+        for (int i = 0; i < length - 1; i++) {
+            min = i;
+            for (j = i + 1; j < length; j++) {
+                selection(i, j, min);
+                if (data.get(j).getData() < data.get(min).getData()) min = j;
+                increaseSteps();
+            }
+            if (j == data.size()) j--;
+            swap(data, min, i, i, j, min);
         }
     }
 
