@@ -167,10 +167,11 @@ public class Values extends JDialog implements KeyListener, ActionListener {
     }
 
     private ArrayList<Integer> dataTable() {
-        return (ArrayList) dataModel
-                .getDataVector()
+        return (ArrayList<Integer>) dataModel.getDataVector()
                 .stream()
                 .flatMap(Collection::stream)
+                .mapToInt(e -> Integer.parseInt(e.toString()))
+                .boxed()
                 .collect(Collectors.toList());
     }
 
