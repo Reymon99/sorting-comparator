@@ -6,12 +6,13 @@ import org.constrains.Weight;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Optional;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Comparator extends JPanel {
-    public final static ArrayList<SortingMethod> methods;
+    public final static HashMap<String, SortingMethod> methods;
     public final static JButton runAll;
     public final static JButton reset;
     public final static JButton setValues;
@@ -24,8 +25,8 @@ public class Comparator extends JPanel {
         reset = new JButton("Reset");
         setValues = new JButton("Set Values");
         comparator = new JButton("Comparator");
-        methods = new ArrayList<>();
-        for (Methods method: Methods.values()) methods.add(new SortingMethod(method));
+        methods = new HashMap<>();
+        Arrays.stream(Methods.values()).forEach(e -> methods.put(e.toString(), new SortingMethod(e)));
     }
 
     public Comparator() {
@@ -98,8 +99,8 @@ public class Comparator extends JPanel {
         comparator.addActionListener(e -> {
             if (Optional.ofNullable(comparatorOne.getSelectedItem()).isPresent() &&
                     Optional.ofNullable(comparatorTwo.getSelectedItem()).isPresent()) {
-                methods.get(comparatorOne.getSelectedIndex()).run();
-                methods.get(comparatorTwo.getSelectedIndex()).run();
+                methods.get(comparatorOne.getSelectedItem().toString()).run();
+                methods.get(comparatorTwo.getSelectedItem().toString()).run();
                 runAll.setEnabled(false);
                 reset.setEnabled(false);
                 setValues.setEnabled(false);
@@ -116,15 +117,15 @@ public class Comparator extends JPanel {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBorder(BorderFactory.createTitledBorder("Control Panel"));
 
-        reset.setEnabled(false);
+        reset.setEnabled(true);
 
         runAll.addActionListener(e -> {
-            methods.forEach(SortingMethod::run);
+            methods.forEach((k, v) -> v.run());
             runAll.setEnabled(false);
             setValues.setEnabled(false);
             comparator.setEnabled(false);
         });
-        reset.addActionListener(e -> methods.forEach(SortingMethod::reset));
+        reset.addActionListener(e -> reset().setVisible(true));
         setValues.addActionListener(e -> new Values((JPanel) getComponent(0)).setVisible(true));
 
         addComponents(panel, runAll, reset, setValues);
@@ -235,5 +236,40 @@ public class Comparator extends JPanel {
                 new Point(GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL)
         );
         return panel;
+    }
+
+    private JDialog reset() {
+        final JDialog dialog = new JDialog();
+        dialog.setTitle("Reset Sorting Methods");
+        dialog.setLayout(new GridLayout(3, 3, 10, 10));
+        Container container = dialog.getContentPane();
+        ArrayList<JRadioButton> buttons = new ArrayList<>(12);
+        methods.forEach((k, v) -> {
+            JRadioButton button = new JRadioButton(k, false);
+            button.setEnabled(v.isSorted());
+            buttons.add(button);
+            container.add(button);
+        });
+        dialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                AtomicBoolean enable = new AtomicBoolean(false);
+                buttons.forEach(button -> {
+                    if (button.isEnabled()) {
+                        if (button.isSelected()) {
+                            methods.get(button.getText()).reset();
+                            button.setEnabled(false);
+                        } else enable.set(true);
+                    }
+                });
+                reset.setEnabled(enable.get());
+                dialog.dispose();
+                System.gc();
+            }
+        });
+        dialog.pack();
+        dialog.setLocationRelativeTo(this.getComponent(0));
+        dialog.setResizable(false);
+        return dialog;
     }
 }

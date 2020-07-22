@@ -14,6 +14,8 @@ public class SortingMethod extends JPanel {
     private final JLabel swaps;
     private final PlayPause playPause;
     private final CanvasSorting canvas;
+    private final int pointers;
+    private boolean sorted;
 
     {
         playPause = new PlayPause();
@@ -23,13 +25,15 @@ public class SortingMethod extends JPanel {
 
     public SortingMethod(Methods method){
         super(new GridBagLayout());
-        canvas = new CanvasSorting(method.getPointers());
+        sorted = false;
+        pointers = method.getPointers();
+        canvas = new CanvasSorting(pointers);
         sorting = new Sorting(
                 method,
                 this,
                 true
         );
-        setToolTipText("Number of " + method.toString() + " pointers: " + method.getPointers());
+        setToolTipText("Number of " + method.toString() + " pointers: " + pointers);
         init();
     }
 
@@ -88,11 +92,12 @@ public class SortingMethod extends JPanel {
 
     public void reset() {
         playPause.setPlayPause(false);
+        playPause.setEnabled(true);
         playPause.action();
         steps.setText("st: 0");
         swaps.setText("sw: 0");
         canvas.setData(canvas.setPercentage());
-        canvas.sorting(0);
+        canvas.sorting(new int[pointers]);
     }
 
     public String getMethod() {
@@ -121,5 +126,13 @@ public class SortingMethod extends JPanel {
 
     public PlayPause getPlayPause() {
         return playPause;
+    }
+
+    public boolean isSorted() {
+        return sorted;
+    }
+
+    public void setSorted(boolean sorted) {
+        this.sorted = sorted;
     }
 }

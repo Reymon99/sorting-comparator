@@ -24,7 +24,14 @@ public class Sorting extends Thread {
 
     @Override
     public void run() {
-        ArrayList<Data> data = method.getCanvas().getData();
+        method.getPlayPause().setEnabled(false);
+        sort(method.getCanvas().getData());
+        method.setSorted(true);
+        method.getPlayPause().setPlayPause(true);
+        method.updateUI();
+    }
+
+    private void sort(ArrayList<Data> data) {
         switch (typeSorting) {
             case BUBBLE:
             case IMPROVED_BUBBLE:
@@ -47,8 +54,6 @@ public class Sorting extends Thread {
             case MERGESORT:
                 break;
         }
-        method.updateUI();
-        method.getPlayPause().setPlayPause(true);
     }
 
     private void swap(ArrayList<Data> data, int i, int j) {
