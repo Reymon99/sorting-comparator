@@ -33,7 +33,7 @@ public class Sorting extends Thread {
 
     private void sort(ArrayList<Data> data) {
         switch (typeSorting) {
-            case BUBBLE:
+            case SIMPLE_BUBBLE:
             case IMPROVED_BUBBLE:
                 break;
             case OPTIMIZED_BUBBLE:

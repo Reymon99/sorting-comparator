@@ -9,9 +9,12 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 public class Comparator extends JPanel {
+    public final static List<String> methodsStr;
     public final static HashMap<String, SortingMethod> methods;
     public final static JButton runAll;
     public final static JButton reset;
@@ -26,7 +29,13 @@ public class Comparator extends JPanel {
         setValues = new JButton("Set Values");
         comparator = new JButton("Comparator");
         methods = new HashMap<>();
-        Arrays.stream(Methods.values()).forEach(e -> methods.put(e.toString(), new SortingMethod(e)));
+        methodsStr = Arrays.stream(Methods.values())
+                .map(String::valueOf)
+                .collect(Collectors.toList());
+        methodsStr.forEach(e -> {
+            String method = e.toUpperCase().replace(' ', '_');
+            methods.put(e, new SortingMethod(Methods.valueOf(method)));
+        });
     }
 
     public Comparator() {
@@ -134,7 +143,7 @@ public class Comparator extends JPanel {
 
     private JPanel methods() {
         JPanel panel = new JPanel(new GridLayout(3, 3, 10, 10));
-        methods.forEach(panel::add);
+        methodsStr.forEach(e -> panel.add(methods.get(e)));
         return panel;
     }
 
@@ -244,9 +253,9 @@ public class Comparator extends JPanel {
         dialog.setLayout(new GridLayout(3, 3, 10, 10));
         Container container = dialog.getContentPane();
         ArrayList<JRadioButton> buttons = new ArrayList<>(12);
-        methods.forEach((k, v) -> {
-            JRadioButton button = new JRadioButton(k, false);
-            button.setEnabled(v.isSorted());
+        methodsStr.forEach(e -> {
+            JRadioButton button = new JRadioButton(e, false);
+            button.setEnabled(methods.get(e).isSorted());
             buttons.add(button);
             container.add(button);
         });

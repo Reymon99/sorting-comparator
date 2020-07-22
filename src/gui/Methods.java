@@ -1,7 +1,7 @@
 package gui;
 
 public enum Methods {
-    BUBBLE("Simple Bubble", 1),
+    SIMPLE_BUBBLE("Simple Bubble", 1),
     IMPROVED_BUBBLE("Improved Bubble", 1),
     OPTIMIZED_BUBBLE("Optimized Bubble", 2),
     QUICKSORT("QuickSort", 2),
