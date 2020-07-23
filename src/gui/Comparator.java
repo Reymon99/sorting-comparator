@@ -263,14 +263,14 @@ public class Comparator extends JPanel {
             @Override
             public void windowClosing(WindowEvent e) {
                 AtomicBoolean enable = new AtomicBoolean(false);
-                buttons.forEach(button -> {
-                    if (button.isEnabled()) {
-                        if (button.isSelected()) {
-                            methods.get(button.getText()).reset();
-                            button.setEnabled(false);
-                        } else enable.set(true);
-                    }
-                });
+                buttons.stream()
+                        .filter(JRadioButton::isEnabled)
+                        .forEach(button -> {
+                            if (button.isSelected()) {
+                                methods.get(button.getText()).reset();
+                                button.setEnabled(false);
+                            } else enable.set(true);
+                        });
                 reset.setEnabled(enable.get());
                 dialog.dispose();
                 System.gc();
