@@ -11,8 +11,12 @@ public class CanvasSorting extends JLabel {
     private ArrayList<Data> data;
     private final HashMap<Integer, Point> lines;
     private final ArrayList<Integer> numberOfPointers;
+    private final Color lineOfData;
+    private final Color selected;
 
     {
+        lineOfData = new Color(121, 114, 114);
+        selected = new Color(131, 143,179);
         numberOfPointers = new ArrayList<>();
         lines = new HashMap<>();
         for (int i = 0; i < 10; i++) lines.put(i, new Point(30, i == 0 ? 8 : 14 * i + 8));
@@ -58,6 +62,10 @@ public class CanvasSorting extends JLabel {
         this.data = data;
     }
 
+    private boolean isSelected(int line) {
+        return numberOfPointers.contains(line);
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -68,13 +76,15 @@ public class CanvasSorting extends JLabel {
     }
 
     private void paintLines(Graphics2D g2) {
-        g2.setPaint(new Color(121, 114, 114));
-        lines.forEach((line, point) -> g2.fill(new RoundRectangle2D.Double(
-                point.x,
-                point.y,
-                100 * data.get(line).getPercentage(),
-                8, 8, 8
-        )));
+        lines.forEach((line, point) -> {
+            g2.setPaint(isSelected(line) ? selected : lineOfData);
+            g2.fill(new RoundRectangle2D.Double(
+                    point.x,
+                    point.y,
+                    100 * data.get(line).getPercentage(),
+                    8, 8, 8
+            ));
+        });
     }
 
     private void paintArrow(Graphics2D g2) {
